@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class InstructorController
 {
