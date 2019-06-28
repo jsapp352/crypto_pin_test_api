@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin
@@ -34,7 +36,7 @@ public class InstructorController
     }
 
     @GetMapping("/instructor/pin/")
-    public Optional<Instructor> RetrieveInstructorByPin(@RequestParam(value = "encryptedPin") String encryptedPin)
+    public Map<String, Object> RetrieveInstructorByPin(@RequestParam(value = "encryptedPin") String encryptedPin)
     {
         Encryptor crypto = new Encryptor();
 
@@ -49,6 +51,14 @@ public class InstructorController
 
         Optional<Instructor> instructor = instructorRepository.findInstructorByPin(pin);
 
-        return instructor;
+        if (instructor == null)
+            return null;
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("id", instructor.get().getId());
+        map.put("name", instructor.get().getName());
+
+        return map;
     }
 }
