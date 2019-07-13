@@ -14,7 +14,7 @@ public class Encryptor {
 
     public Encryptor()
     {
-        String keyGenString = "donteverlookatme";
+        String keyGenString = System.getenv("AES_SECRET");
 
         byte[] encryptionKeyBytes = keyGenString.getBytes();
 
